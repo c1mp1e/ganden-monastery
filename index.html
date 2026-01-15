@@ -1,0 +1,1487 @@
+<!DOCTYPE html>
+<html lang="bo">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>དགའ་ལྡན་དགོན་པ། - 多语言佛教寺庙展示</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+Tibetan:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-gold: #D4AF37;
+            --secondary-gold: #B8860B;
+            --dark-red: #8B0000;
+            --tibetan-blue: #1E3A8A;
+            --tibetan-orange: #D97706;
+            --light-bg: #FFF9E6;
+            --dark-bg: #1A120B;
+            --text-color: #333;
+            --light-text: #FFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Serif Tibetan', 'Noto Sans SC', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-bg);
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M50,20 C70,20 80,40 80,50 C80,60 70,80 50,80 C30,80 20,60 20,50 C20,40 30,20 50,20 Z" fill="%23D4AF37" opacity="0.05"/></svg>');
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 语言选择器 */
+        .language-selector {
+            background-color: var(--dark-bg);
+            padding: 0.5rem 0;
+            text-align: right;
+        }
+
+        .language-options {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.5rem;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: 1px solid var(--primary-gold);
+            color: var(--light-text);
+            padding: 0.2rem 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .lang-btn:hover, .lang-btn.active {
+            background-color: var(--primary-gold);
+            color: var(--dark-bg);
+        }
+
+        /* 头部样式 */
+        header {
+            background: linear-gradient(to right, var(--dark-bg), var(--tibetan-blue));
+            color: var(--light-text);
+            padding: 1rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            font-size: 2.5rem;
+            color: var(--primary-gold);
+            margin-right: 10px;
+        }
+
+        .logo h1 {
+            font-family: 'Noto Serif Tibetan', serif;
+            font-size: 2.2rem;
+            color: var(--primary-gold);
+            line-height: 1.2;
+        }
+
+        .logo span {
+            display: block;
+            font-size: 0.9rem;
+            color: #ddd;
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+
+        .tibetan-text {
+            font-family: 'Noto Serif Tibetan', serif;
+            font-weight: 500;
+        }
+
+        .chinese-text {
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+
+        .english-text {
+            font-family: Arial, sans-serif;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        nav ul li a {
+            color: var(--light-text);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 0;
+            position: relative;
+            transition: color 0.3s;
+            font-family: 'Noto Serif Tibetan', serif;
+            font-size: 1.1rem;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary-gold);
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-gold);
+            transition: width 0.3s;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--light-text);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* 英雄区域 */
+        .hero {
+            background: linear-gradient(rgba(26, 18, 11, 0.85), rgba(30, 58, 138, 0.9)), url('https://images.unsplash.com/photo-1609142621730-e7e76aa3d3c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--light-text);
+            text-align: center;
+            padding: 6rem 0;
+            margin-bottom: 3rem;
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            font-family: 'Noto Serif Tibetan', serif;
+            color: var(--primary-gold);
+            line-height: 1.3;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            line-height: 1.8;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--primary-gold);
+            color: var(--dark-bg);
+            padding: 0.8rem 2rem;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            border: 2px solid var(--primary-gold);
+            font-family: 'Noto Serif Tibetan', serif;
+        }
+
+        .cta-button:hover {
+            background-color: transparent;
+            color: var(--primary-gold);
+        }
+
+        /* 主要区域 */
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--tibetan-blue);
+            font-family: 'Noto Serif Tibetan', serif;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary-gold);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #666;
+            margin-top: -2rem;
+            margin-bottom: 2rem;
+            font-size: 1rem;
+        }
+
+        /* 佛像展示区域 */
+        .buddha-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .buddha-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .buddha-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .buddha-img {
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .buddha-info {
+            padding: 1.5rem;
+        }
+
+        .buddha-info h3 {
+            color: var(--dark-red);
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+            font-family: 'Noto Serif Tibetan', serif;
+        }
+
+        .buddha-info p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .buddha-details {
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        /* 诵经区域 */
+        .sutra-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 3rem;
+            margin-bottom: 4rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .sutra-player {
+            background-color: var(--light-bg);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .player-controls {
+            display: flex;
+            align-items: center;
+            margin-top: 1.5rem;
+        }
+
+        .play-btn {
+            background-color: var(--primary-gold);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            margin-right: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        .play-btn:hover {
+            background-color: var(--secondary-gold);
+        }
+
+        .sutra-list {
+            margin-top: 2rem;
+        }
+
+        .sutra-item {
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .sutra-item:hover {
+            background-color: var(--light-bg);
+        }
+
+        .sutra-item.active {
+            background-color: rgba(212, 175, 55, 0.1);
+            border-left: 4px solid var(--primary-gold);
+        }
+
+        /* 支付区域 */
+        .donation-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 3rem;
+            margin-bottom: 4rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .payment-options {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .payment-method {
+            text-align: center;
+            width: 150px;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 2px solid #eee;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .payment-method:hover {
+            border-color: var(--primary-gold);
+            transform: translateY(-5px);
+        }
+
+        .payment-method i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .wechat-pay {
+            color: #07C160;
+        }
+
+        .alipay {
+            color: #1677FF;
+        }
+
+        .visa {
+            color: #1A1F71;
+        }
+
+        .mastercard {
+            color: #EB001B;
+        }
+
+        .donation-form {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            font-family: 'Noto Serif Tibetan', serif;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: 'Noto Serif Tibetan', 'Noto Sans SC', sans-serif;
+        }
+
+        .amount-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .amount-option {
+            padding: 0.5rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .amount-option:hover,
+        .amount-option.selected {
+            background-color: var(--primary-gold);
+            color: white;
+            border-color: var(--primary-gold);
+        }
+
+        .donate-btn {
+            background-color: var(--primary-gold);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+            font-family: 'Noto Serif Tibetan', serif;
+        }
+
+        .donate-btn:hover {
+            background-color: var(--secondary-gold);
+        }
+
+        /* 多语言内容切换 */
+        .language-content {
+            display: none;
+        }
+
+        .language-content.active {
+            display: block;
+        }
+
+        /* 页脚 */
+        footer {
+            background: linear-gradient(to right, var(--dark-bg), var(--tibetan-blue));
+            color: var(--light-text);
+            padding: 3rem 0 1.5rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            color: var(--primary-gold);
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            font-family: 'Noto Serif Tibetan', serif;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-column ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--primary-gold);
+        }
+
+        .contact-info i {
+            margin-right: 0.5rem;
+            color: var(--primary-gold);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid #444;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .logo {
+                margin-bottom: 1rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            nav ul li {
+                margin: 0;
+                text-align: center;
+                padding: 0.5rem 0;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+            }
+
+            .hero h2 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+
+            .sutra-section, .donation-section {
+                padding: 2rem 1rem;
+            }
+
+            .payment-method {
+                width: 130px;
+            }
+
+            .language-options {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 语言选择器 -->
+    <div class="language-selector">
+        <div class="container">
+            <div class="language-options">
+                <button class="lang-btn active" data-lang="bo">བོད་སྐད། (藏语)</button>
+                <button class="lang-btn" data-lang="zh">中文</button>
+                <button class="lang-btn" data-lang="en">English</button>
+                <button class="lang-btn" data-lang="hi">हिन्दी (印地语)</button>
+                <button class="lang-btn" data-lang="ja">日本語 (日语)</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 头部导航 -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-dharmachakra"></i>
+                    <div>
+                        <h1 class="tibetan-text">དགའ་ལྡན་དགོན་པ།</h1>
+                        <span class="chinese-text">甘丹寺 - 智慧与慈悲的道场</span>
+                    </div>
+                </div>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <nav id="mainNav">
+                    <ul>
+                        <li><a href="#home" class="tibetan-text" data-lang-key="nav_home">གཙོ་ངོས།</a></li>
+                        <li><a href="#buddhas" class="tibetan-text" data-lang-key="nav_buddhas">སངས་རྒྱས་སྐུ་བརྙན།</a></li>
+                        <li><a href="#sutras" class="tibetan-text" data-lang-key="nav_sutras">གསུང་རབ་ཀློག་པ།</a></li>
+                        <li><a href="#donation" class="tibetan-text" data-lang-key="nav_donation">སྦྱིན་པ་གདོང་ལེན།</a></li>
+                        <li><a href="#contact" class="tibetan-text" data-lang-key="nav_contact">འབྲེལ་གཏུགས།</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- 英雄区域 -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="language-content active" data-lang="bo">
+                <h2>དགའ་ལྡན་དགོན་པར་ ཕེབས་པར་ དགའ་བསུ་ཞུ།</h2>
+                <p>དགའ་ལྡན་དགོན་པ་ནི་ལོ་ངོ་བརྒྱ་ཕྲག་མང་པོའི་ལོ་རྒྱུས་ལྡན་པའི་དགོན་པ་ཞིག་ཡིན། ང་ཚོས་སངས་རྒྱས་ཀྱི་བསླབ་བྱ་རྒྱུན་འཛིན་དང་། ཆོས་ཀྱི་ཤེས་རབ་དར་སྤེལ་གཏོང་བ། སེམས་ཅན་ཐམས་ཅད་ལ་སེམས་ཀྱི་གནས་ས་སྦྱིན་པར་འབད་བརྩོན་ཆེན་པོ་བྱེད་ཀྱི་ཡོད།</p>
+                <a href="#buddhas" class="cta-button tibetan-text">སངས་རྒྱས་ཀྱི་ཤེས་རབ་ཞིབ་འཇུག</a>
+            </div>
+
+            <div class="language-content" data-lang="zh">
+                <h2>欢迎来到甘丹寺</h2>
+                <p>甘丹寺是一座拥有数百年历史的佛教寺庙。我们致力于传承佛陀的教诲，弘扬佛法智慧，为一切众生提供心灵栖息之地。在这里，您可以了解佛教文化，聆听佛法经典，参与禅修活动，体验清净自在的修行生活。</p>
+                <a href="#buddhas" class="cta-button chinese-text">探索佛法智慧</a>
+            </div>
+
+            <div class="language-content" data-lang="en">
+                <h2>Welcome to Ganden Monastery</h2>
+                <p>Ganden Monastery is a Buddhist temple with hundreds of years of history. We are committed to preserving the teachings of the Buddha, spreading the wisdom of Dharma, and providing a spiritual sanctuary for all sentient beings. Here, you can learn about Buddhist culture, listen to Dharma scriptures, participate in meditation activities, and experience the pure and free practice life.</p>
+                <a href="#buddhas" class="cta-button english-text">Explore Buddhist Wisdom</a>
+            </div>
+
+            <div class="language-content" data-lang="hi">
+                <h2>गान्देन मठ में आपका स्वागत है</h2>
+                <p>गान्देन मठ सैकड़ों वर्षों के इतिहास वाला एक बौद्ध मंदिर है। हम बुद्ध की शिक्षाओं को संरक्षित करने, धर्म के ज्ञान को फैलाने और सभी संवेदनशील प्राणियों के लिए एक आध्यात्मिक आश्रय प्रदान करने के लिए प्रतिबद्ध हैं। यहां, आप बौद्ध संस्कृति के बारे में जान सकते हैं, धर्म ग्रंथ सुन सकते हैं, ध्यान गतिविधियों में भाग ले सकते हैं और शुद्ध और मुक्त अभ्यास जीवन का अनुभव कर सकते हैं।</p>
+                <a href="#buddhas" class="cta-button">बौद्ध ज्ञान का अन्वेषण करें</a>
+            </div>
+
+            <div class="language-content" data-lang="ja">
+                <h2>ガンデン寺へようこそ</h2>
+                <p>ガンデン寺は数百年の歴史を持つ仏教寺院です。私たちは仏陀の教えを守り、ダルマの智慧を広め、すべての有情衆生に精神的な安息の地を提供することに尽力しています。ここでは、仏教文化について学び、仏法経典を聴き、瞑想活動に参加し、清浄で自由な修行生活を体験することができます。</p>
+                <a href="#buddhas" class="cta-button">仏教の智慧を探る</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 佛像展示区域 -->
+    <section id="buddhas">
+        <div class="container">
+            <div class="section-title">
+                <h2 class="tibetan-text">སངས་རྒྱས་སྐུ་བརྙན་སྟོན་པ།</h2>
+                <div class="section-subtitle">
+                    <span class="language-content active" data-lang="bo">སངས་རྒྱས་ཀྱི་སྐུ་བརྙན་མང་པོ་ཞིག་གི་སྐོར་ལ་གཟིགས།</span>
+                    <span class="language-content" data-lang="zh">观赏多尊佛像的庄严法相</span>
+                    <span class="language-content" data-lang="en">View the majestic forms of multiple Buddha statues</span>
+                    <span class="language-content" data-lang="hi">कई बुद्ध प्रतिमाओं के राजसी रूप देखें</span>
+                    <span class="language-content" data-lang="ja">多数の仏像の荘厳な姿をご覧ください</span>
+                </div>
+            </div>
+            <div class="buddha-grid">
+                <!-- 佛像1 -->
+                <div class="buddha-card">
+                    <div class="buddha-img" style="background-image: url('https://images.unsplash.com/photo-1542796986-0355ef629a51?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <div class="buddha-info">
+                        <h3 class="tibetan-text">ཤཱཀྱ་ཐུབ་པ།</h3>
+                        <div class="language-content active" data-lang="bo">
+                            <p>སངས་རྒྱས་ཆོས་ལུགས་ཀྱི་འགོ་ཁྲིད་པ། "སངས་རྒྱས" ཞེས་པ་ནི་"སངས་རྒྱས་པ" ཡིན། ཤཱཀྱ་ཐུབ་པའི་བསླབ་བྱས་ནི་ནང་པའི་གཞུང་ལུགས་ཀྱི་སྙིང་པོ་ཡིན།</p>
+                            <div class="buddha-details">
+                                <p><i class="fas fa-calendar-alt"></i> སྐྱེས་ལོ：སྤྱི་ལོ་སྔོན་༥༦༣</p>
+                                <p><i class="fas fa-map-marker-alt"></i> སྐྱེ་ས་：རྒྱ་གར་གྱི་ཀ་པི་ལ་བའི་རྒྱལ་ཁབ།</p>
+                            </div>
+                        </div>
+                        <div class="language-content" data-lang="zh">
+                            <p>佛教创始人，被尊称为"佛陀"，意为"觉悟者"。释迦牟尼佛的教诲形成了佛教的核心教义。</p>
+                            <div class="buddha-details">
+                                <p><i class="fas fa-calendar-alt"></i> 诞辰：公元前563年</p>
+                                <p><i class="fas fa-map-marker-alt"></i> 出生地：古印度迦毗罗卫国</p>
+                            </div>
+                        </div>
+                        <div class="language-content" data-lang="en">
+                            <p>Founder of Buddhism, revered as "Buddha", meaning "the awakened one". The teachings of Shakyamuni Buddha form the core doctrines of Buddhism.</p>
+                            <div class="buddha-details">
+                                <p><i class="fas fa-calendar-alt"></i> Birth: 563 BCE</p>
+                                <p><i class="fas fa-map-marker-alt"></i> Birthplace: Kapilavastu, Ancient India</p>
+                            </div>
+                        </div>
+                        <div class="language-content" data-lang="hi">
+                            <p>बौद्ध धर्म के संस्थापक, "बुद्ध" के रूप में पूजे जाते हैं, जिसका अर्थ है "जागृत व्यक्ति"। शाक्यमुनि बुद्ध की शिक्षाएं बौद्ध धर्म के मूल सिद्धांतों का निर्माण करती हैं।</p>
+                            <div class="buddha-details">
+                                <p><i class="fas fa-calendar-alt"></i> जन्म: 563 ईसा पूर्व</p>
+                                <p><i class="fas fa-map-marker-alt"></i> जन्मस्थान: कपिलवस्तु, प्राचीन भारत</p>
+                            </div>
+                        </div>
+                        <div class="language-content" data-lang="ja">
+                            <p>仏教の創始者で、「目覚めた人」を意味する「仏陀」として尊崇されています。釈迦牟尼仏の教えは仏教の核心教義を形成しています。</p>
+                            <div class="buddha-details">
+                                <p><i class="fas fa-calendar-alt"></i> 誕生: 紀元前563年</p>
+                                <p><i class="fas fa-map-marker-alt"></i> 出生地: 古代インド、カピラヴァストゥ</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 佛像2 -->
+                <div class="buddha-card">
+                    <div class="buddha-img" style="background-image: url('https://images.unsplash.com/photo-1543005471-aa30f4e7b8b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <div class="buddha-info">
+                        <h3 class="tibetan-text">སྤྱན་རས་གཟིགས།</h3>
+                        <div class="language-content active" data-lang="bo">
+                            <p>ཐུགས་རྗེ་ཆེན་པོ་དང་སྙིང་རྗེ་ཆེན་པོའི་བྱིན་རླབས་ཅན་གྱི་བྱང་ཆུབ་སེམས་དཔའ། སྤྱན་རས་གཟིགས་ནི་རྒྱ་ནག་ནང་པའི་ཆོས་ལུགས་སུ་གུས་པ་ཆེ་ཤོས་ཀྱི་བྱང་ཆུབ་སེམས་དཔའ་ཡིན།</p>
+                            <div class="buddha-details">
+                                <p><i class="fas fa-hands-helping"></i> མཚོན་དོན་：ཐུགས་རྗེ་དང་སྒྲོལ་བ།</p>
+                                <p><i class="fas fa-pray"></i> གནས་ས་：པོ་ཏ་ལ།</p>
+                            </div>
+                        </div>
+                        <div class="language-content" data-lang="zh">
+                            <p>大慈大悲的菩萨，以慈悲心救度众生苦难。观音菩萨是中国佛教中最受崇敬的菩萨之一。</p>
+                            <div class="buddha-details">
+                                <p><i class="fas fa-hands-helping"></i> 象征：慈悲与救度</p>
+                                <p><i class="fas fa-pray"></i> 道场：普陀山</p>
+                            </div>
+                        </div>
+                        <div class="language-content" data-lang="en">
+                            <p>The Bodhisattva of great compassion and mercy, who saves sentient beings from suffering with a compassionate heart. Avalokiteshvara is one of the most revered Bodhisattvas in Chinese Buddhism.</p>
+                            <div class="buddha-details">
+                                <p><i class="fas fa-hands-helping"></i> Symbol: Compassion and salvation</p>
+                                <p><i class="fas fa-pray"></i> Abode: Mount Putuo</p>
+                            </div>
+                        </div>
+                        <div class="language-content" data-lang="hi">
+                            <p>महान करुणा और दया के बोधिसत्व, जो करुणामय हृदय से संवेदनशील प्राणियों को दुख से बचाते हैं। अवलोकितेश्वर चीनी बौद्ध धर्म में सबसे अधिक पूजे जाने वाले बोधिसत्वों में से एक हैं।</p>
+                            <div class="buddha-details">
+                                <p><i class="fas fa-hands-helping"></i> प्रतीक: करुणा और मुक्ति</p>
+                                <p><i class="fas fa-pray"></i> निवास: पुतुओ पर्वत</p>
+                            </div>
+                        </div>
+                        <div class="language-content" data-lang="ja">
+                            <p>大慈大悲の菩薩であり、慈悲の心で衆生の苦難を救います。観音菩薩は中国仏教で最も崇敬される菩薩の一人です。</p>
+                            <div class="buddha-details">
+                                <p><i class="fas fa-hands-helping"></i> 象徴: 慈悲と救済</p>
+                                <p><i class="fas fa-pray"></i> 道場: 普陀山</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 佛像3 -->
+                <div class="buddha-card">
+                    <div class="buddha-img" style="background-image: url('https://images.unsplash.com/photo-1511895426328-dc8714191300?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <div class="buddha-info">
+                        <h3 class="tibetan-text">བྱམས་པ་མགོན་པོ།</h3>
+                        <div class="language-content active" data-lang="bo">
+                            <p>མ་འོངས་པའི་སངས་རྒྱས། ད་ལྟ་བཀོད་པ་ལྷུན་གྱིས་གྲུབ་པའི་གནས་སུ་བཞུགས། ཤཱཀྱ་ཐུབ་པའི་བསྟན་པ་ནུབ་རྗེས་སུ་ས་གནས་འདིར་འཆར་ཡན་དུ་འོང་བ་དང་སངས་རྒྱས་སུ་གྱུར་ནས་སེམས་ཅན་སྒྲོལ་བར་བྱ་བ་ཡིན།</p>
+                            <div class="buddha-details">
+                                <p><i class="fas fa-smile"></i> མཚོན་དོན་：དགའ་སྐྱིད་དང་རེ་བ།</p>
+                                <p><i class="fas fa-clock"></i> འཆར་ཡན་：ལོ་༥.༦༧༠་ཀོ་ཊི།</p>
+                            </div>
+                        </div>
+                        <div class="language-content" data-lang="zh">
+                            <p>未来佛，现居于兜率天宫，将在释迦牟尼佛的教法灭尽后，下生人间成佛度众。</p>
+                            <div class="buddha-details">
+                                <p><i class="fas fa-smile"></i> 象征：欢喜与希望</p>
+                                <p><i class="fas fa-clock"></i> 降临：未来56.7亿年后</p>
+                            </div>
+                        </div>
+                        <div class="language-content" data-lang="en">
+                            <p>The Future Buddha, currently residing in Tushita Heaven, will descend to the human world to become a Buddha and save sentient beings after the teachings of Shakyamuni Buddha have declined.</p>
+                            <div class="buddha-details">
+                                <p><i class="fas fa-smile"></i> Symbol: Joy and hope</p>
+                                <p><i class="fas fa-clock"></i> Advent: After 5.67 billion years</p>
+                            </div>
+                        </div>
+                        <div class="language-content" data-lang="hi">
+                            <p>भविष्य के बुद्ध, वर्तमान में तुषित स्वर्ग में निवास करते हैं, शाक्यमुनि बुद्ध की शिक्षाओं के समाप्त होने के बाद मानव जगत में अवतरित होंगे और संवेदनशील प्राणियों को बचाने के लिए बुद्ध बनेंगे।</p>
+                            <div class="buddha-details">
+                                <p><i class="fas fa-smile"></i> प्रतीक: आनंद और आशा</p>
+                                <p><i class="fas fa-clock"></i> आगमन: 5.67 अरब वर्ष बाद</p>
+                            </div>
+                        </div>
+                        <div class="language-content" data-lang="ja">
+                            <p>未来仏であり、現在は兜率天に住んでいます。釈迦牟尼仏の教法が滅んだ後、人間界に降りて仏となり、衆生を救います。</p>
+                            <div class="buddha-details">
+                                <p><i class="fas fa-smile"></i> 象徴: 歓喜と希望</p>
+                                <p><i class="fas fa-clock"></i> 降臨: 56.7億年後</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 佛经诵读区域 -->
+    <section id="sutras">
+        <div class="container">
+            <div class="section-title">
+                <h2 class="tibetan-text">གསུང་རབ་ཀློག་པ།</h2>
+                <div class="section-subtitle">
+                    <span class="language-content active" data-lang="bo">གསུང་རབ་ནི་སངས་རྒྱས་ཀྱི་བསླབ་བྱའི་ཡིག་ཐོག་ཡིན། གསུང་རབ་ཀློག་པས་སེམས་སྦྱང་ཐུབ་པ་དང་ཤེས་རབ་འཕེལ་རྒྱས་འགྲོ་བ།</span>
+                    <span class="language-content" data-lang="zh">佛经是佛陀的教诲记录，诵读佛经能够净化心灵，增长智慧。</span>
+                    <span class="language-content" data-lang="en">Sutras are the recorded teachings of the Buddha. Reciting sutras can purify the mind and increase wisdom.</span>
+                    <span class="language-content" data-lang="hi">सूत्र बुद्ध की शिक्षाओं के अभिलेख हैं। सूत्रों का पाठ करने से मन शुद्ध होता है और ज्ञान बढ़ता है।</span>
+                    <span class="language-content" data-lang="ja">経典は仏陀の教えの記録です。経典を誦読することは心を清め、智慧を増すことができます。</span>
+                </div>
+            </div>
+            <div class="sutra-section">
+                <div class="language-content active" data-lang="bo">
+                    <p>ང་ཚོས་གསུང་རབ་ཀྱི་དཔེ་ཆ་མང་པོ་བཙུངས་ཤིང་། ལྟེ་གནས་པའི་སློབ་དཔོན་གྱི་ཀློག་སྒྲའི་ཐོག་ནས་ཁྱེད་རང་གིས་ཉེ་གནས་ནས་ཉན་ཐོས་དང་སྦྱང་བར་བྱེད་ཆོག</p>
+                </div>
+                <div class="language-content" data-lang="zh">
+                    <p>我们精选了多部经典佛经，配有专业僧侣的诵读录音，供您在线聆听和学习。</p>
+                </div>
+                <div class="language-content" data-lang="en">
+                    <p>We have selected many classic sutras, accompanied by recitation recordings by professional monks, for you to listen to and study online.</p>
+                </div>
+                <div class="language-content" data-lang="hi">
+                    <p>हमने कई शास्त्रीय सूत्रों का चयन किया है, जो पेशेवर भिक्षुओं द्वारा पाठ रिकॉर्डिंग के साथ हैं, ताकि आप ऑनलाइन सुन और अध्ययन कर सकें।</p>
+                </div>
+                <div class="language-content" data-lang="ja">
+                    <p>専門の僧侶による読経録音を伴った多くの古典経典を選び、オンラインで聴講・学習していただけます。</p>
+                </div>
+
+                <div class="sutra-player">
+                    <h3>
+                        <span class="language-content active" data-lang="bo">ད་ལྟ་བཀྲམ་གསལ།</span>
+                        <span class="language-content" data-lang="zh">当前播放：</span>
+                        <span class="language-content" data-lang="en">Now Playing:</span>
+                        <span class="language-content" data-lang="hi">अब चल रहा है:</span>
+                        <span class="language-content" data-lang="ja">現在再生中：</span>
+                        <span id="currentSutra" class="tibetan-text">《སེམས་ཀྱི་མདོ》</span>
+                    </h3>
+                    <div class="player-controls">
+                        <button class="play-btn" id="playBtn">
+                            <i class="fas fa-play"></i>
+                        </button>
+                        <div class="player-info">
+                            <div class="tibetan-text">《ཤེས་རབ་ཀྱི་ཕ་རོལ་ཏུ་ཕྱིན་པའི་སེམས་ཀྱི་མདོ》</div>
+                            <div>
+                                <span class="language-content active" data-lang="bo">ཀློག་མཁན་：ཤེས་རབ་འོད་ཟེར་སློབ་དཔོན།</span>
+                                <span class="language-content" data-lang="zh">诵读：慧明法师</span>
+                                <span class="language-content" data-lang="en">Recited by: Master Huiming</span>
+                                <span class="language-content" data-lang="hi">पाठक: मास्टर हुईमिंग</span>
+                                <span class="language-content" data-lang="ja">読経：慧明法師</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 30%; background-color: var(--primary-gold); height: 5px; border-radius: 3px;"></div>
+                    </div>
+                </div>
+
+                <div class="sutra-list">
+                    <!-- 心经 -->
+                    <div class="sutra-item active" data-sutra="《སེམས་ཀྱི་མདོ》">
+                        <h4 class="tibetan-text">《ཤེས་རབ་ཀྱི་ཕ་རོལ་ཏུ་ཕྱིན་པའི་སེམས་ཀྱི་མདོ》</h4>
+                        <div class="language-content active" data-lang="bo">
+                            <p>ནང་པའི་གཞུང་ལུགས་ཀྱི་སྙིང་པོའི་གསུང་རབ། སྟོང་པ་ཉིད་ཀྱི་ཤེས་རབ་སྟོན་པ། ཡིག་ཚང་༢༦༠།</p>
+                            <div class="sutra-meta">
+                                <span><i class="far fa-clock"></i> སྐར་མ་༥༣༠</span>
+                                <span><i class="fas fa-play-circle"></i> ༡.༢་འཁོར་བཀྲམ།</span>
+                            </div>
+                        </div>
+                        <div class="language-content" data-lang="zh">
+                            <p>佛教核心经典，阐述空性智慧，全文260字。</p>
+                            <div class="sutra-meta">
+                                <span><i class="far fa-clock"></i> 5分30秒</span>
+                                <span><i class="fas fa-play-circle"></i> 1.2万次播放</span>
+                            </div>
+                        </div>
+                        <div class="language-content" data-lang="en">
+                            <p>The core sutra of Buddhism, expounding the wisdom of emptiness, 260 characters in total.</p>
+                            <div class="sutra-meta">
+                                <span><i class="far fa-clock"></i> 5:30</span>
+                                <span><i class="fas fa-play-circle"></i> 12K plays</span>
+                            </div>
+                        </div>
+                        <div class="language-content" data-lang="hi">
+                            <p>बौद्ध धर्म का मूल सूत्र, शून्यता के ज्ञान को समझाता है, कुल 260 अक्षर।</p>
+                            <div class="sutra-meta">
+                                <span><i class="far fa-clock"></i> 5:30</span>
+                                <span><i class="fas fa-play-circle"></i> 12K बार चला</span>
+                            </div>
+                        </div>
+                        <div class="language-content" data-lang="ja">
+                            <p>仏教の核心経典で、空性の智慧を説き、全文260字。</p>
+                            <div class="sutra-meta">
+                                <span><i class="far fa-clock"></i> 5分30秒</span>
+                                <span><i class="fas fa-play-circle"></i> 1.2万回再生</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 金刚经 -->
+                    <div class="sutra-item" data-sutra="《རྡོ་རྗེ་གཅོད་པའི་མདོ》">
+                        <h4 class="tibetan-text">《རྡོ་རྗེ་གཅོད་པའི་ཤེས་རབ་ཀྱི་ཕ་རོལ་ཏུ་ཕྱིན་པའི་མདོ》</h4>
+                        <div class="language-content active" data-lang="bo">
+                            <p>ཐེག་པ་ཆེན་པོའི་གསུང་རབ་གལ་ཆེན། མཚན་མ་མེད་པ་དང་མི་གནས་པའི་ཤེས་རབ་སྟོན་པ།</p>
+                            <div class="sutra-meta">
+                                <span><i class="far fa-clock"></i> སྐར་མ་༤༢༡༥</span>
+                                <span><i class="fas fa-play-circle"></i> ༨་སྟོང་འཁོར་བཀྲམ།</span>
+                            </div>
+                        </div>
+                        <div class="language-content" data-lang="zh">
+                            <p>大乘佛教重要经典，讲述无相无住的智慧。</p>
+                            <div class="sutra-meta">
+                                <span><i class="far fa-clock"></i> 42分15秒</span>
+                                <span><i class="fas fa-play-circle"></i> 8千次播放</span>
+                            </div>
+                        </div>
+                        <div class="language-content" data-lang="en">
+                            <p>Important Mahayana sutra, teaching the wisdom of no-form and no-abiding.</p>
+                            <div class="sutra-meta">
+                                <span><i class="far fa-clock"></i> 42:15</span>
+                                <span><i class="fas fa-play-circle"></i> 8K plays</span>
+                            </div>
+                        </div>
+                        <div class="language-content" data-lang="hi">
+                            <p>महायान बौद्ध धर्म का महत्वपूर्ण सूत्र, निराकार और अनासक्त ज्ञान सिखाता है।</p>
+                            <div class="sutra-meta">
+                                <span><i class="far fa-clock"></i> 42:15</span>
+                                <span><i class="fas fa-play-circle"></i> 8K बार चला</span>
+                            </div>
+                        </div>
+                        <div class="language-content" data-lang="ja">
+                            <p>大乗仏教の重要経典で、無相無住の智慧を説きます。</p>
+                            <div class="sutra-meta">
+                                <span><i class="far fa-clock"></i> 42分15秒</span>
+                                <span><i class="fas fa-play-circle"></i> 8千回再生</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 功德捐助区域 -->
+    <section id="donation">
+        <div class="container">
+            <div class="section-title">
+                <h2 class="tibetan-text">སྦྱིན་པ་གདོང་ལེན།</h2>
+                <div class="section-subtitle">
+                    <span class="language-content active" data-lang="bo">སྦྱིན་པ་ནི་ནང་པའི་སྒོམ་སྦྱོང་གི་ཐབས་ལམ་གལ་ཆེན་ཞིག་ཡིན།</span>
+                    <span class="language-content" data-lang="zh">随喜功德是佛教修行的重要方式之一。</span>
+                    <span class="language-content" data-lang="en">Making offerings is one of the important practices in Buddhism.</span>
+                    <span class="language-content" data-lang="hi">दान देना बौद्ध धर्म में अभ्यास का एक महत्वपूर्ण तरीका है।</span>
+                    <span class="language-content" data-lang="ja">布施は仏教修行の重要な方法の一つです。</span>
+                </div>
+            </div>
+            <div class="donation-section">
+                <div class="language-content active" data-lang="bo">
+                    <p>ཁྱེད་ཀྱི་སྦྱིན་པ་ནི་དགོན་པ་བཟོ་བཅོས། གསུང་རབ་དཔར་བ། བྱམས་སྦྱིན། ཆོས་ཀྱི་སློབ་གསོ་སྤེལ་བ་སོགས་སུ་ཕན་པར་བྱེད་ངེས། ང་ཚོས་སྦྱིན་པའི་དངུལ་རྣམས་གསལ་པོ་དང་ཡོངས་སུ་ཁ་ཕྱེ་བ། དམིགས་ཡུལ་གཅིག་ལ་ཉར་ཚགས་བྱེད་པར་ཡིད་ཆེས་བྱེད་ཀྱི་ཡོད།</p>
+                </div>
+                <div class="language-content" data-lang="zh">
+                    <p>您的捐助将用于寺庙修缮、佛经印刷、慈善救助和弘扬佛法。我们承诺所有捐助款项都将透明公开，专款专用。</p>
+                </div>
+                <div class="language-content" data-lang="en">
+                    <p>Your donation will be used for temple repairs, sutra printing, charitable aid, and spreading the Dharma. We promise that all donation funds will be transparent and used for specific purposes.</p>
+                </div>
+                <div class="language-content" data-lang="hi">
+                    <p>आपका दान मंदिर की मरम्मत, सूत्र मुद्रण, चैरिटेबल सहायता और धर्म के प्रसार के लिए उपयोग किया जाएगा। हम वादा करते हैं कि सभी दान निधियां पारदर्शी होंगी और विशिष्ट उद्देश्यों के लिए उपयोग की जाएंगी।</p>
+                </div>
+                <div class="language-content" data-lang="ja">
+                    <p>ご寄付は、寺院の修復、経典の印刷、慈善援助、仏法の弘通に使用されます。すべての寄付金は透明で、特定の目的に使用されることをお約束します。</p>
+                </div>
+
+                <div class="payment-options">
+                    <div class="payment-method wechat-pay" data-method="wechat">
+                        <i class="fab fa-weixin"></i>
+                        <h4>微信支付</h4>
+                        <p>WeChat Pay</p>
+                    </div>
+
+                    <div class="payment-method alipay" data-method="alipay">
+                        <i class="fab fa-alipay"></i>
+                        <h4>支付宝</h4>
+                        <p>Alipay</p>
+                    </div>
+
+                    <div class="payment-method visa" data-method="visa">
+                        <i class="fab fa-cc-visa"></i>
+                        <h4>VISA卡</h4>
+                        <p>VISA Card</p>
+                    </div>
+
+                    <div class="payment-method mastercard" data-method="mastercard">
+                        <i class="fab fa-cc-mastercard"></i>
+                        <h4>Mastercard</h4>
+                        <p>Mastercard</p>
+                    </div>
+                </div>
+
+                <div class="donation-form">
+                    <div class="form-group">
+                        <label for="donorName" class="tibetan-text">
+                            <span class="language-content active" data-lang="bo">སྦྱིན་བདག་གི་མིང་།</span>
+                            <span class="language-content" data-lang="zh">功德主姓名</span>
+                            <span class="language-content" data-lang="en">Donor Name</span>
+                            <span class="language-content" data-lang="hi">दानदाता का नाम</span>
+                            <span class="language-content" data-lang="ja">寄進者名</span>
+                        </label>
+                        <input type="text" id="donorName" placeholder="请输入您的姓名">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="donationAmount" class="tibetan-text">
+                            <span class="language-content active" data-lang="bo">སྦྱིན་པའི་དངུལ་ཚད། (རྒྱ་ནག་སྒོར་མོ)</span>
+                            <span class="language-content" data-lang="zh">捐助金额 (人民币)</span>
+                            <span class="language-content" data-lang="en">Donation Amount (RMB)</span>
+                            <span class="language-content" data-lang="hi">दान राशि (आरएमबी)</span>
+                            <span class="language-content" data-lang="ja">寄付金額 (人民元)</span>
+                        </label>
+                        <input type="number" id="donationAmount" placeholder="请输入捐助金额" min="1" value="100">
+                        <div class="amount-options">
+                            <div class="amount-option" data-amount="50">50元</div>
+                            <div class="amount-option selected" data-amount="100">100元</div>
+                            <div class="amount-option" data-amount="200">200元</div>
+                            <div class="amount-option" data-amount="500">500元</div>
+                            <div class="amount-option" data-amount="1000">1000元</div>
+                            <div class="amount-option" data-amount="0">
+                                <span class="language-content active" data-lang="bo">གཞན།</span>
+                                <span class="language-content" data-lang="zh">其他</span>
+                                <span class="language-content" data-lang="en">Other</span>
+                                <span class="language-content" data-lang="hi">अन्य</span>
+                                <span class="language-content" data-lang="ja">その他</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="donationPurpose" class="tibetan-text">
+                            <span class="language-content active" data-lang="bo">སྦྱིན་པའི་དམིགས་ཡུལ།</span>
+                            <span class="language-content" data-lang="zh">捐助用途</span>
+                            <span class="language-content" data-lang="en">Donation Purpose</span>
+                            <span class="language-content" data-lang="hi">दान का उद्देश्य</span>
+                            <span class="language-content" data-lang="ja">寄付用途</span>
+                        </label>
+                        <select id="donationPurpose">
+                            <option value="temple">
+                                <span class="language-content active" data-lang="bo">དགོན་པ་བཟོ་བཅོས།</span>
+                                <span class="language-content" data-lang="zh">寺庙修缮</span>
+                                <span class="language-content" data-lang="en">Temple Repair</span>
+                                <span class="language-content" data-lang="hi">मंदिर की मरम्मत</span>
+                                <span class="language-content" data-lang="ja">寺院修復</span>
+                            </option>
+                            <option value="sutra">
+                                <span class="language-content active" data-lang="bo">གསུང་རབ་དཔར་བ།</span>
+                                <span class="language-content" data-lang="zh">佛经印刷</span>
+                                <span class="language-content" data-lang="en">Sutra Printing</span>
+                                <span class="language-content" data-lang="hi">सूत्र मुद्रण</span>
+                                <span class="language-content" data-lang="ja">経典印刷</span>
+                            </option>
+                            <option value="charity">
+                                <span class="language-content active" data-lang="bo">བྱམས་སྦྱིན།</span>
+                                <span class="language-content" data-lang="zh">慈善救助</span>
+                                <span class="language-content" data-lang="en">Charitable Aid</span>
+                                <span class="language-content" data-lang="hi">चैरिटेबल सहायता</span>
+                                <span class="language-content" data-lang="ja">慈善援助</span>
+                            </option>
+                            <option value="education">
+                                <span class="language-content active" data-lang="bo">ཆོས་ཀྱི་སློབ་གསོ།</span>
+                                <span class="language-content" data-lang="zh">佛法教育</span>
+                                <span class="language-content" data-lang="en">Dharma Education</span>
+                                <span class="language-content" data-lang="hi">धर्म शिक्षा</span>
+                                <span class="language-content" data-lang="ja">仏法教育</span>
+                            </option>
+                            <option value="other">
+                                <span class="language-content active" data-lang="bo">གཞན།</span>
+                                <span class="language-content" data-lang="zh">其他用途</span>
+                                <span class="language-content" data-lang="en">Other Purposes</span>
+                                <span class="language-content" data-lang="hi">अन्य उद्देश्य</span>
+                                <span class="language-content" data-lang="ja">その他の用途</span>
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="blessingContent" class="tibetan-text">
+                            <span class="language-content active" data-lang="bo">བཀྲ་ཤིས་བདེ་ལེགས་ཀྱི་ནང་དོན། (རང་མོས)</span>
+                            <span class="language-content" data-lang="zh">祈福内容 (可选)</span>
+                            <span class="language-content" data-lang="en">Blessing Content (Optional)</span>
+                            <span class="language-content" data-lang="hi">आशीर्वाद सामग्री (वैकल्पिक)</span>
+                            <span class="language-content" data-lang="ja">祈願内容 (任意)</span>
+                        </label>
+                        <textarea id="blessingContent" rows="3" placeholder="请输入您的祈福内容，法师将为您诵经祈福"></textarea>
+                    </div>
+
+                    <button class="donate-btn tibetan-text" id="donateBtn">
+                        <span class="language-content active" data-lang="bo">ད་ལྟ་སྦྱིན་པ་གདོང་ལེན།</span>
+                        <span class="language-content" data-lang="zh">立即捐助</span>
+                        <span class="language-content" data-lang="en">Donate Now</span>
+                        <span class="language-content" data-lang="hi">अब दान करें</span>
+                        <span class="language-content" data-lang="ja">今すぐ寄付</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3 class="tibetan-text">དགའ་ལྡན་དགོན་པ།</h3>
+                    <div class="language-content active" data-lang="bo">
+                        <p>དགའ་ལྡན་དགོན་པ་ནི་ཏང་རྒྱལ་རབས་ཀྱི་དུས་སུ་བཙུགས་པ་དང་། ལོ་རྒྱུས་སྟོང་ཕྲག་མང་པོ་ལྡན་པ་ཞིག་ཡིན། ང་ཚོས་སངས་རྒྱས་ཀྱི་བསླབ་བྱ་རྒྱུན་འཛིན་དང་། ཆོས་ཀྱི་སྤྱི་བོ་འཛིན་པ། སེམས་ཅན་ཐམས་ཅད་ལ་སྒོམ་སྦྱོང་གི་གནས་ས་དང་སེམས་ཀྱི་ནང་ཁྱིམ་སྦྱིན་པར་འབད་བརྩོན་ཆེན་པོ་བྱེད་ཀྱི་ཡོད།</p>
+                    </div>
+                    <div class="language-content" data-lang="zh">
+                        <p>甘丹寺始建于唐代，已有千年历史。我们秉承佛陀教诲，弘扬正法，为众生提供修行场所和精神家园。</p>
+                    </div>
+                    <div class="language-content" data-lang="en">
+                        <p>Ganden Monastery was founded in the Tang Dynasty and has a history of over a thousand years. We uphold the teachings of the Buddha, promote the true Dharma, and provide a place for practice and a spiritual home for all sentient beings.</p>
+                    </div>
+                    <div class="language-content" data-lang="hi">
+                        <p>गान्देन मठ की स्थापना तांग राजवंश में हुई थी और इसका हज़ार साल से अधिक का इतिहास है। हम बुद्ध की शिक्षाओं का पालन करते हैं, सच्चे धर्म का प्रचार करते हैं, और सभी संवेदनशील प्राणियों के लिए अभ्यास का स्थान और आध्यात्मिक घर प्रदान करते हैं।</p>
+                    </div>
+                    <div class="language-content" data-lang="ja">
+                        <p>ガンデン寺は唐代に創建され、千年以上の歴史があります。私たちは仏陀の教えを守り、正法を弘通し、すべての有情衆生に修行の場と精神的な故郷を提供しています。</p>
+                    </div>
+                    <div class="contact-info">
+                        <p><i class="fas fa-map-marker-alt"></i>
+                            <span class="language-content active" data-lang="bo">ཁ་བྱང་། རྒྱ་ནག་གཞིས་ཀ་ཞིང་ཆེན་ཧྭང་ཀྲོའུ་གྲོང་ཁྱེར་ཞི་ཧུ་སྲིད་ཁུལ་ལིང་ཡིན་ལམ་༡་པ།</span>
+                            <span class="language-content" data-lang="zh">地址：中国浙江省杭州市西湖区灵隐路1号</span>
+                            <span class="language-content" data-lang="en">Address: No. 1 Lingyin Road, Xihu District, Hangzhou, Zhejiang, China</span>
+                            <span class="language-content" data-lang="hi">पता: नंबर 1 लिंगयिन रोड, शिहु जिला, हांग्जो, झेजियांग, चीन</span>
+                            <span class="language-content" data-lang="ja">住所：中国浙江省杭州市西湖区霊隠路1号</span>
+                        </p>
+                        <p><i class="fas fa-phone"></i> 电话：0571-8888 8888</p>
+                        <p><i class="fas fa-envelope"></i> 邮箱：info@ganden-temple.com</p>
+                    </div>
+                </div>
+
+                <div class="footer-column">
+                    <h3 class="tibetan-text">
+                        <span class="language-content active" data-lang="bo">མྱུར་མགྱོགས་སྦྲེལ་མཐུད།</span>
+                        <span class="language-content" data-lang="zh">快速链接</span>
+                        <span class="language-content" data-lang="en">Quick Links</span>
+                        <span class="language-content" data-lang="hi">त्वरित लिंक</span>
+                        <span class="language-content" data-lang="ja">クイックリンク</span>
+                    </h3>
+                    <ul>
+                        <li><a href="#home" class="tibetan-text">གཙོ་ངོས།</a></li>
+                        <li><a href="#buddhas" class="tibetan-text">སངས་རྒྱས་སྐུ་བརྙན།</a></li>
+                        <li><a href="#sutras" class="tibetan-text">གསུང་རབ་ཀློག་པ།</a></li>
+                        <li><a href="#donation" class="tibetan-text">སྦྱིན་པ་གདོང་ལེན།</a></li>
+                        <li><a href="#" class="tibetan-text">ཆོ་གའི་བྱེད་སྒོ།</a></li>
+                        <li><a href="#" class="tibetan-text">བསམ་གཏན་ཉམས་ལེན།</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3 class="tibetan-text">
+                        <span class="language-content active" data-lang="bo">ང་ཚོར་རྗེས་སུ་འབྲང་།</span>
+                        <span class="language-content" data-lang="zh">关注我们</span>
+                        <span class="language-content" data-lang="en">Follow Us</span>
+                        <span class="language-content" data-lang="hi">हमें फॉलो करें</span>
+                        <span class="language-content" data-lang="ja">フォローする</span>
+                    </h3>
+                    <div class="language-content active" data-lang="bo">
+                        <p>ང་ཚོའི་སྤྱི་ཚོགས་བར་སྣང་གི་སྒོ་ཁྱོར་ལ་རྗེས་སུ་འབྲང་ནས་ཆོས་ཀྱི་བྱེད་སྒོ་གསར་ཤོས། ཆོས་ཀྱི་བཤད་སྟོན། དགོན་པའི་གནས་ཚུལ་སོགས་ཐོབ་ཐུབ།</p>
+                    </div>
+                    <div class="language-content" data-lang="zh">
+                        <p>关注我们的社交媒体，获取最新法会信息、佛法开示和寺庙动态。</p>
+                    </div>
+                    <div class="language-content" data-lang="en">
+                        <p>Follow our social media to get the latest Dharma event information, Dharma teachings, and temple updates.</p>
+                    </div>
+                    <div class="language-content" data-lang="hi">
+                        <p>नवीनतम धर्म कार्यक्रम जानकारी, धर्म शिक्षाओं और मंदिर अपडेट प्राप्त करने के लिए हमारे सोशल मीडिया का पालन करें।</p>
+                    </div>
+                    <div class="language-content" data-lang="ja">
+                        <p>最新の法会情報、仏法の教え、寺院の動きを入手するために、私たちのソーシャルメディアをフォローしてください。</p>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" style="color: #07C160; margin-right: 15px;"><i class="fab fa-weixin fa-2x"></i></a>
+                        <a href="#" style="color: #1DA1F2; margin-right: 15px;"><i class="fab fa-weibo fa-2x"></i></a>
+                        <a href="#" style="color: #1877F2;"><i class="fab fa-facebook fa-2x"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>© 2023 དགའ་ལྡན་དགོན་པ། རང་དབང་ཅན་ཡོད། | དྲ་ཚིགས་འདི་ནི་ཆོས་ཀྱི་སློབ་གསོ་དང་རིག་གཞུང་བརྗེ་རེས་ལ་དམིགས་པས་བཀོལ་བ་ཡིན།</p>
+                <p>备案号：浙ICP备12345678号</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 多语言切换功能
+        const langButtons = document.querySelectorAll('.lang-btn');
+        const languageContents = document.querySelectorAll('.language-content');
+
+        langButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // 移除所有active类
+                langButtons.forEach(btn => btn.classList.remove('active'));
+
+                // 为当前按钮添加active类
+                this.classList.add('active');
+
+                // 获取所选语言
+                const selectedLang = this.getAttribute('data-lang');
+
+                // 显示所选语言的内容
+                languageContents.forEach(content => {
+                    if (content.getAttribute('data-lang') === selectedLang) {
+                        content.classList.add('active');
+                    } else {
+                        content.classList.remove('active');
+                    }
+                });
+
+                // 更新导航文本
+                updateNavigationText(selectedLang);
+            });
+        });
+
+        // 更新导航文本函数
+        function updateNavigationText(lang) {
+            const navLinks = document.querySelectorAll('nav a');
+
+            // 导航文本的多语言映射
+            const navTexts = {
+                'bo': ['གཙོ་ངོས།', 'སངས་རྒྱས་སྐུ་བརྙན།', 'གསུང་རབ་ཀློག་པ།', 'སྦྱིན་པ་གདོང་ལེན།', 'འབྲེལ་གཏུགས།'],
+                'zh': ['首页', '佛像展示', '佛经诵读', '功德捐助', '联系我们'],
+                'en': ['Home', 'Buddha Statues', 'Sutra Recitation', 'Donation', 'Contact'],
+                'hi': ['मुखपृष्ठ', 'बुद्ध प्रतिमाएं', 'सूत्र पाठ', 'दान', 'संपर्क करें'],
+                'ja': ['ホーム', '仏像展示', '経典読誦', '寄付', 'お問い合わせ']
+            };
+
+            navLinks.forEach((link, index) => {
+                link.textContent = navTexts[lang][index];
+
+                // 更新字体类
+                link.className = '';
+                if (lang === 'bo') {
+                    link.classList.add('tibetan-text');
+                } else if (lang === 'zh') {
+                    link.classList.add('chinese-text');
+                } else {
+                    link.classList.add('english-text');
+                }
+            });
+        }
+
+        // 移动端菜单切换
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            const nav = document.getElementById('mainNav');
+            nav.style.display = nav.style.display === 'block' ? 'none' : 'block';
+        });
+
+        // 调整窗口大小时重置导航显示
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                document.getElementById('mainNav').style.display = '';
+            }
+        });
+
+        // 诵经播放器功能
+        const playBtn = document.getElementById('playBtn');
+        const playIcon = playBtn.querySelector('i');
+        let isPlaying = false;
+
+        playBtn.addEventListener('click', function() {
+            isPlaying = !isPlaying;
+            playIcon.className = isPlaying ? 'fas fa-pause' : 'fas fa-play';
+
+            // 更新播放文本
+            const currentSutra = document.getElementById('currentSutra');
+            // 这里可以根据当前语言更新播放状态文本
+            const activeLang = document.querySelector('.lang-btn.active').getAttribute('data-lang');
+            if (isPlaying) {
+                if (activeLang === 'bo') {
+                    currentSutra.textContent = '《སེམས་ཀྱི་མདོ》 (བཀྲམ་སྒྲོག)';
+                } else if (activeLang === 'zh') {
+                    currentSutra.textContent = '《心经》 (播放中...)';
+                } else if (activeLang === 'en') {
+                    currentSutra.textContent = '《Heart Sutra》 (Playing...)';
+                } else if (activeLang === 'hi') {
+                    currentSutra.textContent = '《हृदय सूत्र》 (चल रहा है...)';
+                } else if (activeLang === 'ja') {
+                    currentSutra.textContent = '《心経》 (再生中...)';
+                }
+            } else {
+                if (activeLang === 'bo') {
+                    currentSutra.textContent = '《སེམས་ཀྱི་མདོ》';
+                } else if (activeLang === 'zh') {
+                    currentSutra.textContent = '《心经》';
+                } else if (activeLang === 'en') {
+                    currentSutra.textContent = '《Heart Sutra》';
+                } else if (activeLang === 'hi') {
+                    currentSutra.textContent = '《हृदय सूत्र》';
+                } else if (activeLang === 'ja') {
+                    currentSutra.textContent = '《心経》';
+                }
+            }
+        });
+
+        // 诵经列表选择功能
+        const sutraItems = document.querySelectorAll('.sutra-item');
+        sutraItems.forEach(item => {
+            item.addEventListener('click', function() {
+                // 移除所有active类
+                sutraItems.forEach(i => i.classList.remove('active'));
+
+                // 为当前项添加active类
+                this.classList.add('active');
+
+                // 更新当前播放的佛经
+                const sutraName = this.getAttribute('data-sutra');
+                document.getElementById('currentSutra').textContent = sutraName;
+
+                // 重置播放按钮
+                isPlaying = false;
+                playIcon.className = 'fas fa-play';
+            });
+        });
+
+        // 捐助金额选择功能
+        const amountOptions = document.querySelectorAll('.amount-option');
+        const donationAmount = document.getElementById('donationAmount');
+
+        amountOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                // 移除所有selected类
+                amountOptions.forEach(opt => opt.classList.remove('selected'));
+
+                // 为当前选项添加selected类
+                this.classList.add('selected');
+
+                // 更新金额输入框
+                const amount = this.getAttribute('data-amount');
+                if (amount === '0') {
+                    donationAmount.value = '';
+                    donationAmount.focus();
+                } else {
+                    donationAmount.value = amount;
+                }
+            });
+        });
+
+        // 支付方式选择
+        const paymentMethods = document.querySelectorAll('.payment-method');
+        paymentMethods.forEach(method => {
+            method.addEventListener('click', function() {
+                // 移除所有选中效果
+                paymentMethods.forEach(m => {
+                    m.style.borderColor = '#eee';
+                    m.style.boxShadow = 'none';
+                });
+
+                // 为当前支付方式添加选中效果
+                this.style.borderColor = 'var(--primary-gold)';
+                this.style.boxShadow = '0 5px 15px rgba(212, 175, 55, 0.2)';
+            });
+        });
+
+        // 捐助按钮功能
+        document.getElementById('donateBtn').addEventListener('click', function() {
+            const donorName = document.getElementById('donorName').value;
+            const amount = document.getElementById('donationAmount').value;
+
+            if (!donorName.trim()) {
+                alert(getLocalizedAlert('请输入您的姓名', 'Please enter your name'));
+                return;
+            }
+
+            if (!amount || amount < 1) {
+                alert(getLocalizedAlert('请输入有效的捐助金额', 'Please enter a valid donation amount'));
+                return;
+            }
+
+            // 获取当前语言
+            const activeLang = document.querySelector('.lang-btn.active').getAttribute('data-lang');
+
+            // 模拟支付过程
+            const originalText = this.innerHTML;
+            this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ' +
+                (activeLang === 'bo' ? 'ལས་ཀ་གཏོང་བཞིན་པ།' :
+                 activeLang === 'zh' ? '处理中...' :
+                 activeLang === 'en' ? 'Processing...' :
+                 activeLang === 'hi' ? 'प्रसंस्करण...' :
+                 '処理中...');
+            this.disabled = true;
+
+            setTimeout(() => {
+                // 根据语言显示感谢信息
+                let thankYouMessage = '';
+                if (activeLang === 'bo') {
+                    thankYouMessage = `བཀའ་དྲིན་ཆེ་ ${donorName} ཀྱི་སྦྱིན་པའི་བསོད་ནམས།\nཁྱེད་ཀྱིས་བསོད་ནམས་དང་ལྡན་པའི་སྦྱིན་པ ${amount} སྒོར་མོ་བྱས་ཟིན།\nབསོད་ནམས་ཚད་མེད་དང་བདེ་སྐྱིད་གཉིས་ལྡན་གྱུར་ཅིག།`;
+                } else if (activeLang === 'zh') {
+                    thankYouMessage = `感谢 ${donorName} 的功德捐助！\n您已成功捐助 ${amount} 元。\n功德无量，福慧双修！`;
+                } else if (activeLang === 'en') {
+                    thankYouMessage = `Thank you ${donorName} for your donation!\nYou have successfully donated ${amount} RMB.\nMay your merits be boundless and your wisdom grow!`;
+                } else if (activeLang === 'hi') {
+                    thankYouMessage = `आपके दान के लिए धन्यवाद ${donorName}!\nआपने सफलतापूर्वक ${amount} आरएमबी दान किया है।\nआपके पुण्य असीम हों और आपकी बुद्धि बढ़े!`;
+                } else if (activeLang === 'ja') {
+                    thankYouMessage = `${donorName}様、ご寄付ありがとうございます！\n${amount}元の寄付が成功しました。\n功德無量、福慧双修！`;
+                }
+
+                alert(thankYouMessage);
+
+                // 重置按钮
+                this.innerHTML = originalText;
+                this.disabled = false;
+
+                // 这里在实际应用中应该跳转到支付页面
+                // window.location.href = 'payment-page.html';
+            }, 2000);
+        });
+
+        // 获取本地化警告信息
+        function getLocalizedAlert(chineseText, englishText) {
+            const activeLang = document.querySelector('.lang-btn.active').getAttribute('data-lang');
+
+            if (activeLang === 'bo') {
+                return 'ཁྱེད་ཀྱི་མིང་དེ་ཞུགས་རོགས།';
+            } else if (activeLang === 'zh') {
+                return chineseText;
+            } else if (activeLang === 'en') {
+                return englishText;
+            } else if (activeLang === 'hi') {
+                return 'कृपया अपना नाम दर्ज करें';
+            } else if (activeLang === 'ja') {
+                return 'お名前を入力してください';
+            }
+
+            return englishText;
+        }
+
+        // 平滑滚动到锚点
+        document.querySelectorAll('nav a, .cta-button').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                if (targetId && targetId.startsWith('#')) {
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+
+                        // 移动端点击后关闭菜单
+                        if (window.innerWidth <= 768) {
+                            document.getElementById('mainNav').style.display = 'none';
+                        }
+                    }
+                }
+            });
+        });
+
+        // 初始化默认选中的支付方式
+        document.querySelector('.payment-method.wechat-pay').style.borderColor = 'var(--primary-gold)';
+        document.querySelector('.payment-method.wechat-pay').style.boxShadow = '0 5px 15px rgba(212, 175, 55, 0.2)';
+    </script>
+</body>
+</html>
