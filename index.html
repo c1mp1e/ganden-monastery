@@ -251,6 +251,93 @@
             font-size: 1rem;
         }
 
+                /* 收款码区域样式 */
+        .payment-methods {
+            background-color: #f9f5e7;
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid #e8d7a9;
+        }
+
+        .qr-code-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .qr-code-item {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            width: 300px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .qr-code-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .qr-code-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .qr-code-image {
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border: 2px dashed #e8d7a9;
+        }
+
+        .qr-code-image img {
+            width: 200px;
+            height: 200px;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .qr-hint {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .qr-code-info {
+            background: #f8f3e0;
+            padding: 0.8rem;
+            border-radius: 6px;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .qr-code-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .qr-code-item {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .qr-code-image img {
+                width: 180px;
+                height: 180px;
+            }
+        }
         /* 佛像展示区域 */
         .buddha-grid {
             display: grid;
@@ -366,7 +453,6 @@
             margin-bottom: 4rem;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
         }
-
         .payment-options {
             display: flex;
             justify-content: center;
@@ -989,31 +1075,61 @@
                 <div class="language-content" data-lang="ja">
                     <p>ご寄付は、寺院の修復、経典の印刷、慈善援助、仏法の弘通に使用されます。すべての寄付金は透明で、特定の目的に使用されることをお約束します。</p>
                 </div>
-                <div class="buddha-img" style="background-image: url('qq_pic_merged_1768458136751.jpg');"></div>
-
-                <div class="payment-options">
-                    <div class="payment-method wechat-pay" data-method="wechat">
-                        <i class="fab fa-weixin"></i>
-                        <h4>微信支付</h4>
-                        <p>WeChat Pay</p>
+                <!-- 在donation-section中添加以下代码 -->
+                <div class="payment-methods">
+                    <h3 class="tibetan-text">དྲ་ཐོག་སྦྱིན་པའི་ཐོག་ལུགས།</h3>
+                    <div class="section-subtitle">
+                        <span class="language-content active" data-lang="bo">ཁྱེད་ཀྱིས་འོག་གི་བརྡ་འཕྲིན་ཐོག་ནས་སྦྱིན་པ་གདོང་ལེན་བྱེད་ཆོག</span>
+                        <span class="language-content" data-lang="zh">您可以通过以下二维码进行捐赠</span>
+                        <span class="language-content" data-lang="en">You can donate through the QR codes below</span>
                     </div>
 
-                    <div class="payment-method alipay" data-method="alipay">
-                        <i class="fab fa-alipay"></i>
-                        <h4>支付宝</h4>
-                        <p>Alipay</p>
-                    </div>
+                    <div class="qr-code-container">
+                        <div class="qr-code-item">
+                            <div class="qr-code-header">
+                                <i class="fab fa-weixin" style="color: #07C160; font-size: 1.5rem;"></i>
+                                <h4>微信支付</h4>
+                            </div>
+                            <div class="qr-code-image">
+                                <!-- 替换为您的微信收款码 -->
+                                <img src="qq_pic_merged_1768458136751.jpg" alt="微信支付二维码" id="wechatQR">
+                                <div class="qr-hint">
+                                    <span class="language-content active" data-lang="bo">ཝེ་ཅིན་གྱི་བརྡ་འཕྲིན་སྒོ་ཁྱོར་བེད་སྤྱོད་བྱས་ཏེ་འདི་ལ་བལྟ་རོགས།</span>
+                                    <span class="language-content" data-lang="zh">使用微信扫一扫</span>
+                                    <span class="language-content" data-lang="en">Scan with WeChat</span>
+                                </div>
+                            </div>
+                            <div class="qr-code-info">
+                                <p><i class="fas fa-user"></i>
+                                    <span class="language-content active" data-lang="bo">སྦྱིན་བདག：དགའ་ལྡན་དགོན་པ།</span>
+                                    <span class="language-content" data-lang="zh">收款人：甘丹寺</span>
+                                    <span class="language-content" data-lang="en">Recipient: Ganden Monastery</span>
+                                </p>
+                            </div>
+                        </div>
 
-                    <div class="payment-method visa" data-method="visa">
-                        <i class="fab fa-cc-visa"></i>
-                        <h4>VISA卡</h4>
-                        <p>VISA Card</p>
-                    </div>
-
-                    <div class="payment-method mastercard" data-method="mastercard">
-                        <i class="fab fa-cc-mastercard"></i>
-                        <h4>Mastercard</h4>
-                        <p>Mastercard</p>
+                        <div class="qr-code-item">
+                            <div class="qr-code-header">
+                                <i class="fab fa-alipay" style="color: #1677FF; font-size: 1.5rem;"></i>
+                                <h4>支付宝</h4>
+                            </div>
+                            <div class="qr-code-image">
+                                <!-- 替换为您的支付宝收款码 -->
+                                <img src="qq_pic_merged_1768459200564.jpg" alt="支付宝二维码" id="alipayQR">
+                                <div class="qr-hint">
+                                    <span class="language-content active" data-lang="bo">ཨ་ལི་པེའི་བརྡ་འཕྲིན་སྒོ་ཁྱོར་བེད་སྤྱོད་བྱས་ཏེ་འདི་ལ་བལྟ་རོགས།</span>
+                                    <span class="language-content" data-lang="zh">使用支付宝扫一扫</span>
+                                    <span class="language-content" data-lang="en">Scan with Alipay</span>
+                                </div>
+                            </div>
+                            <div class="qr-code-info">
+                                <p><i class="fas fa-user"></i>
+                                    <span class="language-content active" data-lang="bo">སྦྱིན་བདག：དགའ་ལྡན་དགོན་པ།</span>
+                                    <span class="language-content" data-lang="zh">收款人：甘丹寺</span>
+                                    <span class="language-content" data-lang="en">Recipient: Ganden Monastery</span>
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
